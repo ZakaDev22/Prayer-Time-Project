@@ -64,44 +64,58 @@ function showError(message) {
 
 function FillTheTabelWithTheCityPrayers(CityId) {
   const tableBody = document.querySelector("#prayerTable tbody");
-  tableBody.innerHTML = ""; 
+  tableBody.innerHTML = ""; // Clear the table body before adding new rows
+
   axios
     .get(prayerTimesApi + CityId)
     .then((response) => {
       AllertDiv.classList.add("d-none"); // Hide the alert if the request is successful
       const timings = response.data.data.timings; // Access the timings array
+
       timings.forEach((timing) => {
         const prayers = timing.prayers; // Access the prayers object
-        const date = timing.date.readable; // Get the readable date
+        const date = timing.date.readable; // Get the readable Gregorian date
+        const hijriDate = `${timing.date.hijri.day} ${timing.date.hijri.month}`; // Get the Hijri date
 
-        // Create a row for each prayer time
-        for (const [prayerName, prayerTime] of Object.entries(prayers)) {
-          let row = document.createElement("tr");
+        // Create a new row for the table
+        let row = document.createElement("tr");
 
-          // Create cells for prayer name, time, and date
-          let prayerNameCell = document.createElement("td");
-          let prayerTimeCell = document.createElement("td");
-          let dateCell = document.createElement("td");
+        // Create cells for each column
+        let dateCell = document.createElement("td");
+        let hijriCell = document.createElement("td");
+        let fajrCell = document.createElement("td");
+        let dhuhrCell = document.createElement("td");
+        let asrCell = document.createElement("td");
+        let maghribCell = document.createElement("td");
+        let ishaCell = document.createElement("td");
 
-          prayerNameCell.innerText = prayerName; // e.g., "fajr", "dhuhr"
-          prayerTimeCell.innerText = prayerTime; // e.g., "05:52"
-          dateCell.innerText = date; // e.g., "31 Mar 2025"
+        // Populate the cells with data
+        dateCell.innerText = date;
+        hijriCell.innerText = hijriDate;
+        fajrCell.innerText = prayers.fajr;
+        dhuhrCell.innerText = prayers.dhuhr;
+        asrCell.innerText = prayers.asr;
+        maghribCell.innerText = prayers.maghrib;
+        ishaCell.innerText = prayers.ishaa;
 
-          row.appendChild(prayerNameCell);
-          row.appendChild(prayerTimeCell);
-          row.appendChild(dateCell);
+        // Append the cells to the row
+        row.appendChild(dateCell);
+        row.appendChild(hijriCell);
+        row.appendChild(fajrCell);
+        row.appendChild(dhuhrCell);
+        row.appendChild(asrCell);
+        row.appendChild(maghribCell);
+        row.appendChild(ishaCell);
 
-          tableBody.appendChild(row);
-        }
+        // Append the row to the table body
+        tableBody.appendChild(row);
       });
     })
     .catch((error) => {
       console.error("Error fetching prayer times:", error);
       showError("Error fetching prayer times. Please check the console for details.!!!");
     });
-    
 }
-
 
 document.addEventListener("DOMContentLoaded", () => {
   FillTheSelectWithTheCities();

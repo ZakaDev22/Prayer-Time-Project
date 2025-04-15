@@ -1,5 +1,11 @@
-
-
-#citySelect {
+.RightDirection {
     direction: rtl;
+}
+
+#prayerTable tbody tr:nth-child(2) {
+    text-align: center;
+}
+
+#prayerTable tbody tr td:nth-child(2) {
+    text-align: center;
 }
