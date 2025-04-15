@@ -1,4 +1,5 @@
 
-.hidden {
-    display: none;
+
+#citySelect {
+    direction: rtl;
 }
