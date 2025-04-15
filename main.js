@@ -1,4 +1,3 @@
-import axios from "axios";
 
 const div = document.createElement("div");
 div.classList.add(
@@ -20,6 +19,7 @@ function FillTheSelectWithTheCities() {
   axios
     .get("https://habous-prayer-times-api.onrender.com/api/v1/available-cities")
     .then((response) => {
+      div.classList.add("d-none"); // Hide the alert if the request is successful
       const cities = response.data;
       const select = document.getElementById("citySelect");
       cities.forEach((city) => {
