@@ -90,7 +90,7 @@ function FillTheTabelWithTheCityPrayers(CityId) {
         let maghribCell = document.createElement("td");
         let ishaCell = document.createElement("td");
         let btnDetails = document.createElement("td");
-        btnDetails.innerHTML = `<button class="btn btn-primary" onclick="showDetails('${date}')">Details</button>`;
+        btnDetails.innerHTML = `<button class="btn btn-primary" onclick="showDetails('${date,hijriDate,prayers}')">Details</button>`;
 
         // Populate the cells with data
         dateCell.innerText = date;
@@ -121,14 +121,22 @@ function FillTheTabelWithTheCityPrayers(CityId) {
     });
 }
 
-function showDetails(date) 
+function showDetails(date,hijriDate,prayers) 
 {
   const detailsDiv = document.createElement("div");
   detailsDiv.classList.add("details-div", "position-fixed", "top-50", "start-50", "translate-middle", "bg-light", "p-4", "shadow");
   detailsDiv.innerHTML = `
     <h5>Prayer Times for ${date}</h5>
-    <p>Details about the prayer times for ${date} will go here.</p>
-    <button class="btn btn-secondary" onclick="closeDetails()">Close</button>
+     <h5>Prayer Times In Hijri Date : ${hijriDate}</h5>
+    <p>Details about the prayer times will go here.</p>
+    
+        <h3>Fajr : ${prayers.fajr}</h3>
+        <h3>Dhuhr : ${prayers.dhuhr}</h3>
+        <h3>Asr : ${prayers.asr}</>
+        <h3>Maghrib : ${prayers.maghrib}</>
+        <h3>Isha : ${prayers.ishaa}</>
+    
+    <button class="btn btn-danger" onclick="closeDetails()">Close</button>
   `;
   body.appendChild(detailsDiv);
 }
