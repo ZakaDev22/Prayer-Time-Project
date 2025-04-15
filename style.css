@@ -23,7 +23,8 @@
   animation: borderGlow 2s infinite; 
 }
 
-@keyframes borderGlow {
+
+@keyframes borderGlow  {
   0% {
     border-color: #ff0000; 
     box-shadow: 0 0 10px #ff0000;
@@ -71,4 +72,26 @@
     color: #ffeb3b; 
     text-decoration: underline;
     transform: scale(1.05);
+}
+
+#todayRow-link {
+animation: LinkGlow 2s infinite;
+}
+
+
+@keyframes LinkGlow {
+    0% {
+        color: #ff0000;
+        text-shadow: 0 0 10px #ff0000;
+    }
+
+    50% {
+        color: #00ff00;
+        text-shadow: 0 0 10px #00ff00;
+    }
+
+    100% {
+        color: #0000ff;
+        text-shadow: 0 0 10px #0000ff;
+    }
 }
