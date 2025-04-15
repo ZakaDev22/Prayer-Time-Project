@@ -90,7 +90,7 @@ function FillTheTabelWithTheCityPrayers(CityId) {
         let maghribCell = document.createElement("td");
         let ishaCell = document.createElement("td");
         let btnDetails = document.createElement("td");
-        btnDetails.innerHTML = `<button class="btn btn-primary" onclick="showDetails('${date,hijriDate,prayers}')">Details</button>`;
+        btnDetails.innerHTML = `<button class="btn btn-primary" onclick='showDetails("${date}", "${hijriDate}", ${JSON.stringify(prayers)})'>Details</button>`;
 
         // Populate the cells with data
         dateCell.innerText = date;
