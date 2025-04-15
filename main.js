@@ -21,38 +21,33 @@ const prayerTimesApi =
 const citiesApi =
   "https://habous-prayer-times-api.onrender.com/api/v1/available-cities";
 
-  function FillTheSelectWithTheCities() {
+function FillTheSelectWithTheCities() {
   axios
     .get(citiesApi)
     .then((response) => {
       AllertDiv.classList.add("d-none"); // Hide the alert if the request is successful
       const cities = response.data.cities;
       const select = document.getElementById("citySelect");
+        select.innerHTML = ""; // Clear existing options
 
       // Populate the select element with city options
       cities.forEach((city) => {
         let option = document.createElement("option");
         option.value = city.id;
-        option.text = city.arabicCityName;
+        option.text = `${city.arabicCityName} (${city.frenshCityName})`;
         if (city.id === "104") {
           option.selected = true; // Set Marrakesh as the default selected option
         }
         select.add(option);
       });
 
-      // Add event listener to the select element
-      select.addEventListener("change", (event) => {
-        const selectedCityId = event.target.value; // Get the selected city's ID
-        FillTheTabelWithTheCityPrayers(selectedCityId); // Call the function to fill the table
-      });
-
-      // Call the function initially for the default selected city (Marrakesh)
-      FillTheTabelWithTheCityPrayers("104");
     })
     .catch((error) => {
       console.error("Error fetching cities:", error);
       showError("Error fetching cities. Please check the console for details.!!!");
     });
+
+    FillTheTabelWithTheCityPrayers("104"); // Default city ID for Marrakesh
 }
 
 function showError(message) {
@@ -66,6 +61,13 @@ function showError(message) {
 function FillTheTabelWithTheCityPrayers(CityId) {
   const tableBody = document.querySelector("#prayerTable tbody");
   tableBody.innerHTML = ""; // Clear the table body before adding new rows
+
+  const today = new Date();
+  const todayDate = today.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }); // Format: "31 Mar 2025"
 
   axios
     .get(prayerTimesApi + CityId)
@@ -81,6 +83,11 @@ function FillTheTabelWithTheCityPrayers(CityId) {
         // Create a new row for the table
         let row = document.createElement("tr");
 
+        // Highlight the row if it matches today's date
+        if (date === todayDate) {
+          row.classList.add("table-warning"); // Add a Bootstrap class for highlighting
+        }
+
         // Create cells for each column
         let dateCell = document.createElement("td");
         let hijriCell = document.createElement("td");
@@ -90,7 +97,7 @@ function FillTheTabelWithTheCityPrayers(CityId) {
         let maghribCell = document.createElement("td");
         let ishaCell = document.createElement("td");
         let btnDetails = document.createElement("td");
-        btnDetails.innerHTML = `<button class="btn btn-primary" onclick='showDetails("${date}", "${hijriDate}", ${JSON.stringify(prayers)})'>Details</button>`;
+        btnDetails.innerHTML = `<button class="btn btn-info" onclick='showDetails("${date}", "${hijriDate}", ${JSON.stringify(prayers)})'>Details</button>`;
 
         // Populate the cells with data
         dateCell.innerText = date;
@@ -170,4 +177,5 @@ function closeDetails() {
 
 document.addEventListener("DOMContentLoaded", () => {
   FillTheSelectWithTheCities();
+
 });

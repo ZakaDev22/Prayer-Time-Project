@@ -17,25 +17,47 @@
     padding-left: 150px;
 }
 
-/* Border animation for the details popup */
 #detailsPopup {
-  border: 4px solid transparent; /* Initial border */
-  border-radius: 10px; /* Rounded corners */
-  animation: borderGlow 2s infinite; /* Apply the animation */
+  border: 4px solid transparent; 
+  border-radius: 10px; 
+  animation: borderGlow 2s infinite; 
 }
 
-/* Define the keyframes for the border animation */
 @keyframes borderGlow {
   0% {
-    border-color: #ff0000; /* Red */
+    border-color: #ff0000; 
     box-shadow: 0 0 10px #ff0000;
   }
   50% {
-    border-color: #00ff00; /* Green */
+    border-color: #00ff00; 
     box-shadow: 0 0 10px #00ff00;
   }
   100% {
-    border-color: #0000ff; /* Blue */
+    border-color: #0000ff; 
     box-shadow: 0 0 10px #0000ff;
   }
+}
+
+.highlight-today {
+  background-color: #ffeb3b; 
+  font-weight: bold;
+  color: #333;
+}
+
+.btn {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease; 
+}
+
+.btn:hover {
+    background-color: #45a049; 
+    transform: scale(1.05); 
 }
