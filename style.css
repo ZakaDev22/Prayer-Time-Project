@@ -2,10 +2,13 @@
     direction: rtl;
 }
 
-#prayerTable tbody tr:nth-child(2) {
+#prayerTable tbody tr td:nth-child(2) {
     text-align: center;
 }
 
-#prayerTable tbody tr td:nth-child(2) {
-    text-align: center;
+#prayerTable tbody tr td:hover {
+    background-color: #f0f0f0; /* Light gray */
+    color: #333; /* Dark text */
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Smooth transition */
 }

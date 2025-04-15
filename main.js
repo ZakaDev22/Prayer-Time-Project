@@ -20,7 +20,8 @@ const prayerTimesApi =
   "https://habous-prayer-times-api.onrender.com/api/v1/prayer-times?cityId=";
 const citiesApi =
   "https://habous-prayer-times-api.onrender.com/api/v1/available-cities";
-function FillTheSelectWithTheCities() {
+
+  function FillTheSelectWithTheCities() {
   axios
     .get(citiesApi)
     .then((response) => {
