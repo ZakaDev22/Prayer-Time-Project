@@ -95,3 +95,14 @@ animation: LinkGlow 2s infinite;
         text-shadow: 0 0 10px #0000ff;
     }
 }
+
+footer a {
+    color: #ffffff; 
+    text-decoration: none; 
+    font-weight: 600;
+}
+footer a:hover {
+    color: #ffeb3b; 
+    text-decoration: underline;
+    transform: scale(1.5);
+}
