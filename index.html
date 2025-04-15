@@ -4,7 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Prayer Time App</title>
-
+    <link
+      rel="icon"
+      href="https://cdn-icons-png.flaticon.com/512/1041/1041910.png"
+      type="image/x-icon"
+    />
+    <meta
+      name="description"
+      content="Stay updated with accurate Moroccan prayer times for various cities. Find Fajr, Dhuhr, Asr, Maghrib, and Isha timings easily."
+    />
+    <meta
+      name="keywords"
+      content="Moroccan prayer times, Islamic prayer times, Fajr, Dhuhr, Asr, Maghrib, Isha, Morocco cities prayer times"
+    />
+    <meta name="author" content="Zakaria Elfakhar" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Moroccan Cities Prayer Times" />
+    <meta
+      property="og:description"
+      content="Check accurate prayer times for cities in Morocco. Stay connected to your daily prayers."
+    />
+    <meta
+      property="og:image"
+      content="https://cdn-icons-png.flaticon.com/512/1041/1041910.png"
+    />
+    <meta property="og:url" content="https://yourwebsite.com" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -12,16 +37,51 @@
       crossorigin="anonymous"
     />
     <!-- Include Bootstrap Select CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-select/dist/css/bootstrap-select.min.css"
+    />
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
       crossorigin="anonymous"
     ></script>
-    
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg bg-primary border-bottom " id="navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">🕌</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#todayRow">Today Prayers</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contacts </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled" aria-disabled="true">Other Countries Coming Soon</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
     <div class="container mt-5">
       <h2 class="text-center mb-4">🕌 Moroccan Cities Prayer Times</h2>
 

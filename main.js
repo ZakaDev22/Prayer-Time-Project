@@ -85,7 +85,8 @@ function FillTheTabelWithTheCityPrayers(CityId) {
 
         // Highlight the row if it matches today's date
         if (date === todayDate) {
-          row.classList.add("table-warning"); // Add a Bootstrap class for highlighting
+          row.classList.add("table-warning");
+          row.id = "todayRow"; // Assign an id to the row for easy access
         }
 
         // Create cells for each column
@@ -177,5 +178,4 @@ function closeDetails() {
 
 document.addEventListener("DOMContentLoaded", () => {
   FillTheSelectWithTheCities();
-
 });

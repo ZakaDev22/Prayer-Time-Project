@@ -61,3 +61,14 @@
     background-color: #45a049; 
     transform: scale(1.05); 
 }
+
+#navbar {
+    color: #fff; 
+    font-weight: 800;
+}
+
+.nav-link:hover {
+    color: #ffeb3b; 
+    text-decoration: underline;
+    transform: scale(1.05);
+}
