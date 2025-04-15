@@ -76,7 +76,7 @@ function FillTheTabelWithTheCityPrayers(CityId) {
       timings.forEach((timing) => {
         const prayers = timing.prayers; // Access the prayers object
         const date = timing.date.readable; // Get the readable Gregorian date
-        const hijriDate = `${timing.date.hijri.day} ${timing.date.hijri.month}`; // Get the Hijri date
+        const hijriDate = `${timing.date.hijri.day}-${timing.date.hijri.month}`; // Get the Hijri date
 
         // Create a new row for the table
         let row = document.createElement("tr");
@@ -89,6 +89,8 @@ function FillTheTabelWithTheCityPrayers(CityId) {
         let asrCell = document.createElement("td");
         let maghribCell = document.createElement("td");
         let ishaCell = document.createElement("td");
+        let btnDetails = document.createElement("td");
+        btnDetails.innerHTML = `<button class="btn btn-primary" onclick="showDetails('${date}')">Details</button>`;
 
         // Populate the cells with data
         dateCell.innerText = date;
@@ -107,6 +109,7 @@ function FillTheTabelWithTheCityPrayers(CityId) {
         row.appendChild(asrCell);
         row.appendChild(maghribCell);
         row.appendChild(ishaCell);
+        row.appendChild(btnDetails);
 
         // Append the row to the table body
         tableBody.appendChild(row);
@@ -116,6 +119,25 @@ function FillTheTabelWithTheCityPrayers(CityId) {
       console.error("Error fetching prayer times:", error);
       showError("Error fetching prayer times. Please check the console for details.!!!");
     });
+}
+
+function showDetails(date) 
+{
+  const detailsDiv = document.createElement("div");
+  detailsDiv.classList.add("details-div", "position-fixed", "top-50", "start-50", "translate-middle", "bg-light", "p-4", "shadow");
+  detailsDiv.innerHTML = `
+    <h5>Prayer Times for ${date}</h5>
+    <p>Details about the prayer times for ${date} will go here.</p>
+    <button class="btn btn-secondary" onclick="closeDetails()">Close</button>
+  `;
+  body.appendChild(detailsDiv);
+}
+
+function closeDetails() {
+  const detailsDiv = document.querySelector(".details-div");
+  if (detailsDiv) {
+    detailsDiv.remove();
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

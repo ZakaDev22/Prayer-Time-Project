@@ -6,9 +6,9 @@
     text-align: center;
 }
 
-#prayerTable tbody tr td:hover {
-    background-color: #f0f0f0; /* Light gray */
-    color: #333; /* Dark text */
+#prayerTable tbody tr:hover {
+    background-color: #fff; 
+    color: #333; 
     font-weight: bold;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    cursor: pointer;
 }
