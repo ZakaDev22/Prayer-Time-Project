@@ -1,18 +1,28 @@
-import axios from "./node_modules/axios/dist/axios.min.js";
-export default axios;
+import axios from "axios";
 
-// let div = document.createElement("div");
-// div.classList.add("hidden alert alert-danger");
-// div.innerHTML ="Error fetching cities. Please try again later. Please Look at the console for more details.";
-// // div.classList.add("hidden");
-// document.body.appendChild(div);
+const div = document.createElement("div");
+div.classList.add(
+  "alert",
+  "alert-danger",
+  "position-fixed",
+  "top-0",
+  "start-50",
+  "translate-middle-x",
+  "w-50",
+  "z-3",
+  "d-none"
+);
+div.innerHTML = "Please Look Into The Console Log for More Details";
+const body = document.querySelector("body");
+body.appendChild(div);
 
 function FillTheSelectWithTheCities() {
-  axios.Get("https://habous-prayer-times-api.onrender.com/api/v1/available-cities")
-    .then(data => {
-    //   div.classList.add("hidden");
+  axios
+    .get("https://habous-prayer-times-api.onrender.com/api/v1/available-cities")
+    .then((response) => {
+      const cities = response.data;
       const select = document.getElementById("citySelect");
-      data.forEach((city) => {
+      cities.forEach((city) => {
         let option = document.createElement("option");
         option.value = city.id;
         option.text = city.arabicCityName;
@@ -20,13 +30,11 @@ function FillTheSelectWithTheCities() {
       });
     })
     .catch((error) => {
-    //   div.classList.remove("hidden");
       console.error("Error fetching cities:", error);
+      div.classList.remove("d-none"); // Make the alert visible
     });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    FillTheSelectWithTheCities();
-
+  FillTheSelectWithTheCities();
 });
