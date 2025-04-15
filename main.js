@@ -121,23 +121,43 @@ function FillTheTabelWithTheCityPrayers(CityId) {
     });
 }
 
-function showDetails(date,hijriDate,prayers) 
-{
+function showDetails(date, hijriDate, prayers) {
   const detailsDiv = document.createElement("div");
-  detailsDiv.classList.add("details-div", "position-fixed", "top-50", "start-50", "translate-middle", "bg-light", "p-4", "shadow");
+  detailsDiv.id = "detailsPopup"; // Assign an id to the div
+
+  detailsDiv.classList.add(
+    "details-div",
+    "position-fixed",
+    "top-50",
+    "start-50",
+    "translate-middle",
+    "bg-light",
+    "p-4",
+    "shadow",
+    "rounded",
+    "text-center"
+  );
+  detailsDiv.style.zIndex = "1050"; // Ensure it appears above other elements
+
   detailsDiv.innerHTML = `
-    <h5>Prayer Times for ${date}</h5>
-     <h5>Prayer Times In Hijri Date : ${hijriDate}</h5>
-    <p>Details about the prayer times will go here.</p>
-    
-        <h3>Fajr : ${prayers.fajr}</h3>
-        <h3>Dhuhr : ${prayers.dhuhr}</h3>
-        <h3>Asr : ${prayers.asr}</>
-        <h3>Maghrib : ${prayers.maghrib}</>
-        <h3>Isha : ${prayers.ishaa}</>
-    
-    <button class="btn btn-danger" onclick="closeDetails()">Close</button>
+    <h4 class="mb-3">Prayer Times</h4>
+    <p class="mb-1"><strong>Date:</strong> ${date}</p>
+    <p class="mb-3"><strong>Hijri Date:</strong> ${hijriDate}</p>
+    <div class="row text-start">
+      <div class="col-6"><strong>Fajr:</strong></div>
+      <div class="col-6">${prayers.fajr}</div>
+      <div class="col-6"><strong>Dhuhr:</strong></div>
+      <div class="col-6">${prayers.dhuhr}</div>
+      <div class="col-6"><strong>Asr:</strong></div>
+      <div class="col-6">${prayers.asr}</div>
+      <div class="col-6"><strong>Maghrib:</strong></div>
+      <div class="col-6">${prayers.maghrib}</div>
+      <div class="col-6"><strong>Isha:</strong></div>
+      <div class="col-6">${prayers.ishaa}</div>
+    </div>
+    <button class="btn btn-danger mt-4" onclick="closeDetails()">Close</button>
   `;
+
   body.appendChild(detailsDiv);
 }
 
