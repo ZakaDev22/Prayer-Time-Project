@@ -34,8 +34,10 @@ This web app was designed for developers, learners, and anyone who wants easy ac
 
 ## 🗺️ API Source
 
-This app fetches prayer times from:  https://habous-prayer-times-api.onrender.com/api/v1/
+This app fetches prayer times from: https://habous-prayer-times-api.onrender.com/
 
+
+-`https://habous-prayer-times-api.onrender.com/api/v1/` + 👇
 
 - `/available-cities` — returns Moroccan cities.
 - `/prayer-times?cityId=` — returns prayer times by city.
