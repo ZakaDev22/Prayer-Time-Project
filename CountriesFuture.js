@@ -17,10 +17,14 @@ function FindYourCity() {
     "rounded",
     "text-center"
   );
-  detailsDiv.style.zIndex = "1050";
-
+  
   detailsDiv.innerHTML = `
     <h4 class="mb-3">Find Prayer Times</h4>
+    <p class="text-muted">
+      Please enter the <strong>ISO country code (2 Characters)</strong> (e.g., <code>MA</code> for Morocco) and the city name. 
+      You can find the list of ISO country codes 
+      <a href="https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes" target="_blank" rel="noopener noreferrer">here</a>.
+    </p>
     <form id="searchForm">
       <div class="mb-3">
         <label for="countryInput" class="form-label">Country:</label>
