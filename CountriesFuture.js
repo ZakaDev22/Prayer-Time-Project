@@ -1,7 +1,6 @@
 const WorldPrayerTimeAPI = "https://api.aladhan.com/v1/timingsByCity?";
 
 function FindYourCity() {
-  console.log("FindYourCity button clicked!");
   const detailsDiv = document.createElement("div");
   detailsDiv.id = "SearchdetailsPopup";
 
@@ -15,8 +14,12 @@ function FindYourCity() {
     "p-5",
     "shadow",
     "rounded",
-    "text-center"
+    "text-center",
+    "w-75",
+    "h-75",
   );
+
+  detailsDiv.style.overflow = "auto"; // Enable vertical scrolling if content overflows
   
   detailsDiv.innerHTML = `
     <h4 class="mb-3">Find Prayer Times</h4>
@@ -62,7 +65,8 @@ async function fetchPrayerTimes(city, country) {
     const data = response.data;
 
     if (data.code === 200) {
-      const timings = data.data.timings;
+     
+       const timings = data.data.timings;
       resultsDiv.innerHTML = `
         <h5>Prayer Times for ${city}, ${country}</h5>
         <p><strong>Date:</strong> ${data.data.date.readable}</p>

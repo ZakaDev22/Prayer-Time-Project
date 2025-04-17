@@ -107,10 +107,9 @@ footer a:hover {
     transform: scale(1.5);
 }
 
-.details-div {
-    z-index: 1050;
-    width: 500px;
-    height: 500px;
-    overflow: auto;
-    border: 1px solid #ccc;
+
+#results {
+    background-color: #8de77656; 
+    border: 1px solid #ccc; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
 }
