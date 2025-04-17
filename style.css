@@ -74,25 +74,25 @@
     transform: scale(1.05);
 }
 
-#todayRow-link {
-animation: LinkGlow 2s infinite;
+.colors-link {
+animation: LinkGlow 3s infinite;
 }
 
 
 @keyframes LinkGlow {
     0% {
         color: #ff0000;
-        text-shadow: 0 0 10px #ff0000;
+        text-shadow: 0 0 10px #fff;
     }
 
     50% {
-        color: #00ff00;
-        text-shadow: 0 0 10px #00ff00;
+        color: #fff;
+        text-shadow: 0 0 10px #000;
     }
 
     100% {
-        color: #0000ff;
-        text-shadow: 0 0 10px #0000ff;
+        color: rgb(142, 219, 142);
+        text-shadow: 0 0 10px yellow;
     }
 }
 
@@ -102,7 +102,14 @@ footer a {
     font-weight: 600;
 }
 footer a:hover {
-    color: #ffeb3b; 
+    color: #fff; 
     text-decoration: underline;
     transform: scale(1.5);
+}
+
+
+#results {
+    background-color: #8de77656; 
+    border: 1px solid #ccc; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
 }
