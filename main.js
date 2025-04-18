@@ -28,7 +28,7 @@ function FillTheSelectWithTheCities() {
       AllertDiv.classList.add("d-none"); // Hide the alert if the request is successful
       const cities = response.data.cities;
       const select = document.getElementById("citySelect");
-        select.innerHTML = ""; // Clear existing options
+      select.innerHTML = ""; // Clear existing options
 
       // Populate the select element with city options
       cities.forEach((city) => {
@@ -41,13 +41,19 @@ function FillTheSelectWithTheCities() {
         select.add(option);
       });
 
+      // Add an event listener to detect changes in the selected city
+      select.addEventListener("change", (event) => {
+        const selectedCityId = event.target.value;
+        FillTheTabelWithTheCityPrayers(selectedCityId); // Update the table with the new city's prayer times
+      });
+
+      // Load the default city's prayer times
+      FillTheTabelWithTheCityPrayers("104"); // Default city ID for Marrakesh
     })
     .catch((error) => {
       console.error("Error fetching cities:", error);
       showError("Error fetching cities. Please check the console for details.!!!");
     });
-
-    FillTheTabelWithTheCityPrayers("104"); // Default city ID for Marrakesh
 }
 
 function showError(message) {
