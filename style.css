@@ -1,115 +1,169 @@
 .RightDirection {
-    direction: rtl;
+  direction: rtl;
 }
 
 #prayerTable tbody tr td:nth-child(2) {
-    text-align: center;
+  text-align: center;
 }
 
 #prayerTable tbody tr:hover {
-    background-color: #fff; 
-    color: #333; 
-    font-weight: bold;
-    cursor: pointer;
+  background-color: #fff;
+  color: #333;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .col-6 {
-    padding-left: 150px;
+  padding-left: 150px;
 }
 
-#detailsPopup , .borderGlow {
-  border: 4px solid transparent; 
-  border-radius: 10px; 
-  animation: borderGlow 2s infinite; 
+#detailsPopup,
+.borderGlow {
+  border: 4px solid transparent;
+  border-radius: 10px;
+  animation: borderGlow 2s infinite;
 }
 
-
-@keyframes borderGlow  {
+@keyframes borderGlow {
   0% {
-    border-color: #ff0000; 
+    border-color: #ff0000;
     box-shadow: 0 0 10px #ff0000;
   }
   50% {
-    border-color: #00ff00; 
+    border-color: #00ff00;
     box-shadow: 0 0 10px #00ff00;
   }
   100% {
-    border-color: #0000ff; 
+    border-color: #0000ff;
     box-shadow: 0 0 10px #0000ff;
   }
 }
 
 .highlight-today {
-  background-color: #ffeb3b; 
+  background-color: #ffeb3b;
   font-weight: bold;
   color: #333;
 }
 
 .btn {
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 12px;
-    transition: all 0.3s ease; 
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
 .btn:hover {
-    background-color: #45a049; 
-    transform: scale(1.05); 
+  background-color: #45a049;
+  transform: scale(1.05);
 }
 
 #navbar {
-    color: #fff; 
-    font-weight: 800;
+  color: #fff;
+  font-weight: 800;
 }
 
 .nav-link:hover {
-    color: #ffeb3b; 
-    text-decoration: underline;
-    transform: scale(1.05);
+  color: #ffeb3b;
+  text-decoration: underline;
+  transform: scale(1.05);
 }
 
 .colors-link {
-animation: LinkGlow 3s infinite;
+  animation: LinkGlow 3s infinite;
 }
 
-
 @keyframes LinkGlow {
-    0% {
-        color: #ff0000;
-        text-shadow: 0 0 10px #fff;
-    }
+  0% {
+    color: #ff0000;
+    text-shadow: 0 0 10px #fff;
+  }
 
-    50% {
-        color: #fff;
-        text-shadow: 0 0 10px #000;
-    }
+  50% {
+    color: #fff;
+    text-shadow: 0 0 10px #000;
+  }
 
-    100% {
-        color: rgb(142, 219, 142);
-        text-shadow: 0 0 10px yellow;
-    }
+  100% {
+    color: rgb(142, 219, 142);
+    text-shadow: 0 0 10px yellow;
+  }
 }
 
 footer a {
-    color: #ffffff; 
-    text-decoration: none; 
-    font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 600;
 }
 footer a:hover {
-    color: #fff; 
-    text-decoration: underline;
-    transform: scale(1.5);
+  color: #fff;
+  text-decoration: underline;
+  transform: scale(1.5);
 }
 
-
 #results {
-    background-color: #8de77656; 
-    border: 1px solid #ccc; 
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+  background-color: #8de77656;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer error styling */
+#footerError {
+  font-size: 30px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(90deg, #ff5f6d, #ffc371, #7bffb2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.35));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+}
+
+/* Make the text appear shiny */
+@keyframes shine {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+#footerError {
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 255, 255, 0.2)
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  animation: shine 3s linear infinite;
+}
+
+/* Button placed inside footer error message */
+.footerFindBtn {
+  font-size: 24px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  /* allow bootstrap's btn-warning background to show through */
+  background: yellow;
+  color: inherit;
+  margin-top: 6px;
+}
+.footerFindBtn:hover {
+  transform: translateY(-2px);
 }

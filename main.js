@@ -9,12 +9,11 @@ AllertDiv.classList.add(
   "w-50",
   "text-center",
   "shadow",
-  "d-none"
+  "d-none",
 );
-AllertDiv.innerHTML = "Please Look Into The Console Log for More Details";
+AllertDiv.innerHTML = "Please  Look Into The Console Log for More Details";
 const body = document.querySelector("body");
 body.appendChild(AllertDiv);
-
 
 const prayerTimesApi =
   "https://habous-prayer-times-api.onrender.com/api/v1/prayer-times?cityId=";
@@ -25,6 +24,7 @@ async function FillTheSelectWithTheCities() {
   try {
     const response = await axios.get(citiesApi);
     AllertDiv.classList.add("d-none"); // Hide the alert if the request is successful
+    clearFooterError();
     const cities = response.data.cities;
     const select = document.getElementById("citySelect");
     select.innerHTML = ""; // Clear existing options
@@ -50,16 +50,45 @@ async function FillTheSelectWithTheCities() {
     await FillTheTabelWithTheCityPrayers("104"); // Default city ID for Marrakesh
   } catch (error) {
     console.error("Error fetching cities:", error);
-    showError("Error fetching cities. Please check the console for details.!!!");
+    showError(
+      "Error fetching prayer times. Please Find Your City Directly From The Button On Top, And check the console for details.!!!",
+    );
   }
 }
 
 function showError(message) {
   AllertDiv.innerHTML = message;
   AllertDiv.classList.remove("d-none");
+  // Add a one-line error message to the footer so users see it persistently
+  const footerContent = document.getElementById("footerContent");
+  if (footerContent) {
+    let footerErr = document.getElementById("footerError");
+    if (!footerErr) {
+      footerErr = document.createElement("div");
+      footerErr.id = "footerError";
+      footerErr.classList.add("text-danger", "mt-2");
+      footerContent.appendChild(footerErr);
+    }
+    // Insert message and a stacked button that triggers the main 'Find Your City' action
+    footerErr.innerHTML = `<div class="footerMsg">${message}</div><div><button id="footerFindCityBtn" class="btn btn-warning footerFindBtn">Find Your City</button></div>`;
+    const footerBtn = document.getElementById("footerFindCityBtn");
+    if (footerBtn) {
+      footerBtn.addEventListener("click", () => {
+        const target = document.getElementById("findCity-link");
+        if (target) target.click();
+      });
+    }
+  }
+
   setTimeout(() => {
     AllertDiv.classList.add("d-none");
+    // leave footer error visible until cleared by a successful fetch
   }, 5000);
+}
+
+function clearFooterError() {
+  const footerErr = document.getElementById("footerError");
+  if (footerErr) footerErr.remove();
 }
 
 async function FillTheTabelWithTheCityPrayers(CityId) {
@@ -76,6 +105,7 @@ async function FillTheTabelWithTheCityPrayers(CityId) {
   try {
     const response = await axios.get(prayerTimesApi + CityId);
     AllertDiv.classList.add("d-none"); // Hide the alert if the request is successful
+    clearFooterError();
     const timings = response.data.data.timings; // Access the timings array
 
     timings.forEach((timing) => {
@@ -102,7 +132,7 @@ async function FillTheTabelWithTheCityPrayers(CityId) {
       let ishaCell = document.createElement("td");
       let btnDetails = document.createElement("td");
       btnDetails.innerHTML = `<button class="btn btn-info" onclick='showDetails("${date}", "${hijriDate}", ${JSON.stringify(
-        prayers
+        prayers,
       )})'>Details</button>`;
 
       // Populate the cells with data
@@ -128,8 +158,10 @@ async function FillTheTabelWithTheCityPrayers(CityId) {
       tableBody.appendChild(row);
     });
   } catch (error) {
-    console.error("Error fetching prayer times:", error);
-    showError("Error fetching prayer times. Please check the console for details.!!!");
+    console.error("Error fetching prayer times", error);
+    showError(
+      "Error fetching prayer times. Please Find Your City Directly From The Button On Top, And check the console for details.!!!",
+    );
   }
 }
 
@@ -148,7 +180,7 @@ function showDetails(date, hijriDate, prayers) {
     "shadow",
     "rounded",
     "text-center",
-    "borderGlow"
+    "borderGlow",
   );
   detailsDiv.style.zIndex = "1050";
 
@@ -187,7 +219,6 @@ function showDetails(date, hijriDate, prayers) {
   body.appendChild(detailsDiv);
 }
 
-
 document.addEventListener("DOMContentLoaded", () => {
-   FillTheSelectWithTheCities();
+  FillTheSelectWithTheCities();
 });
