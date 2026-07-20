@@ -51,7 +51,7 @@ async function FillTheSelectWithTheCities() {
   } catch (error) {
     console.error("Error fetching cities:", error);
     showError(
-      "Error fetching prayer times. Please Find Your City Directly From The Button On Top, And check the console for details.!!!",
+      "Error fetching prayer times. Please Find Your City Directly From The Yellow Button , And check the console for details.!!!",
     );
   }
 }
@@ -160,7 +160,7 @@ async function FillTheTabelWithTheCityPrayers(CityId) {
   } catch (error) {
     console.error("Error fetching prayer times", error);
     showError(
-      "Error fetching prayer times. Please Find Your City Directly From The Button On Top, And check the console for details.!!!",
+      "Error fetching prayer times. Please Find Your City Directly From The Yellow Button, And check the console for details.!!!",
     );
   }
 }
