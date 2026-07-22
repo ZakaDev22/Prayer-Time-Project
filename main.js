@@ -15,17 +15,31 @@ AllertDiv.innerHTML = "Please  Look Into The Console Log for More Details";
 const body = document.querySelector("body");
 body.appendChild(AllertDiv);
 
-const prayerTimesApi =
-  "https://habous-prayer-times-api.onrender.com/api/v1/prayer-times?cityId=";
-const citiesApi =
-  "https://habous-prayer-times-api.onrender.com/api/v1/available-cities";
+const prayerTimesApi = "https://api.aladhan.com/v1/calendarByCity";
+const cities = [
+  { id: "Marrakech|MA", arabicCityName: "مراكش", frenshCityName: "Marrakech" },
+  {
+    id: "Casablanca|MA",
+    arabicCityName: "الدار البيضاء",
+    frenshCityName: "Casablanca",
+  },
+  { id: "Rabat|MA", arabicCityName: "الرباط", frenshCityName: "Rabat" },
+  { id: "Tangier|MA", arabicCityName: "طنجة", frenshCityName: "Tangier" },
+  { id: "Meknes|MA", arabicCityName: "مكناس", frenshCityName: "Meknes" },
+  { id: "Fes|MA", arabicCityName: "فاس", frenshCityName: "Fes" },
+  { id: "Agadir|MA", arabicCityName: "أكادير", frenshCityName: "Agadir" },
+  { id: "Oujda|MA", arabicCityName: "وجدة", frenshCityName: "Oujda" },
+];
+
+function getCityDetails(cityId) {
+  const [cityName, countryCode] = cityId.split("|");
+  return { cityName, countryCode };
+}
 
 async function FillTheSelectWithTheCities() {
   try {
-    const response = await axios.get(citiesApi);
     AllertDiv.classList.add("d-none"); // Hide the alert if the request is successful
     clearFooterError();
-    const cities = response.data.cities;
     const select = document.getElementById("citySelect");
     select.innerHTML = ""; // Clear existing options
 
@@ -34,7 +48,7 @@ async function FillTheSelectWithTheCities() {
       let option = document.createElement("option");
       option.value = city.id;
       option.text = `${city.arabicCityName} (${city.frenshCityName})`;
-      if (city.id === "104") {
+      if (city.id === "Marrakech|MA") {
         option.selected = true; // Set Marrakesh as the default selected option
       }
       select.add(option);
@@ -47,11 +61,11 @@ async function FillTheSelectWithTheCities() {
     });
 
     // Load the default city's prayer times
-    await FillTheTabelWithTheCityPrayers("104"); // Default city ID for Marrakesh
+    await FillTheTabelWithTheCityPrayers("Marrakech|MA"); // Default city for Marrakesh
   } catch (error) {
     console.error("Error fetching cities:", error);
     showError(
-      "Error fetching prayer times. Please Find Your City Directly From The Yellow Button , And check the console for details.!!!",
+      "Error fetching prayer times. Please Find Your City Directly From The Yellow Button, And check the console for details.!!!",
     );
   }
 }
@@ -101,17 +115,22 @@ async function FillTheTabelWithTheCityPrayers(CityId) {
     month: "short",
     year: "numeric",
   }); // Format: "31 Mar 2025"
+  const month = today.getMonth() + 1;
+  const year = today.getFullYear();
+  const { cityName, countryCode } = getCityDetails(CityId);
 
   try {
-    const response = await axios.get(prayerTimesApi + CityId);
+    const response = await axios.get(
+      `${prayerTimesApi}?city=${encodeURIComponent(cityName)}&country=${countryCode}&method=4&month=${month}&year=${year}`,
+    );
     AllertDiv.classList.add("d-none"); // Hide the alert if the request is successful
     clearFooterError();
-    const timings = response.data.data.timings; // Access the timings array
+    const timings = response.data.data; // Access the calendar array
 
     timings.forEach((timing) => {
-      const prayers = timing.prayers; // Access the prayers object
+      const prayers = timing.timings; // Access the prayer timings object
       const date = timing.date.readable; // Get the readable Gregorian date
-      const hijriDate = `${timing.date.hijri.day}-${timing.date.hijri.month}`; // Get the Hijri date
+      const hijriDate = `${timing.date.hijri.day}-${timing.date.hijri.month.en}`; // Get the Hijri date
 
       // Create a new row for the table
       let row = document.createElement("tr");
@@ -138,11 +157,11 @@ async function FillTheTabelWithTheCityPrayers(CityId) {
       // Populate the cells with data
       dateCell.innerText = date;
       hijriCell.innerText = hijriDate;
-      fajrCell.innerText = prayers.fajr;
-      dhuhrCell.innerText = prayers.dhuhr;
-      asrCell.innerText = prayers.asr;
-      maghribCell.innerText = prayers.maghrib;
-      ishaCell.innerText = prayers.ishaa;
+      fajrCell.innerText = prayers.Fajr;
+      dhuhrCell.innerText = prayers.Dhuhr;
+      asrCell.innerText = prayers.Asr;
+      maghribCell.innerText = prayers.Maghrib;
+      ishaCell.innerText = prayers.Isha;
 
       // Append the cells to the row
       row.appendChild(dateCell);
@@ -190,15 +209,15 @@ function showDetails(date, hijriDate, prayers) {
     <p class="mb-3"><strong>Hijri Date:</strong> ${hijriDate}</p>
     <div class="row text-start">
       <div class="col-6"><strong>Fajr:</strong></div>
-      <div class="col-6">${prayers.fajr}</div>
+      <div class="col-6">${prayers.Fajr}</div>
       <div class="col-6"><strong>Dhuhr:</strong></div>
-      <div class="col-6">${prayers.dhuhr}</div>
+      <div class="col-6">${prayers.Dhuhr}</div>
       <div class="col-6"><strong>Asr:</strong></div>
-      <div class="col-6">${prayers.asr}</div>
+      <div class="col-6">${prayers.Asr}</div>
       <div class="col-6"><strong>Maghrib:</strong></div>
-      <div class="col-6">${prayers.maghrib}</div>
+      <div class="col-6">${prayers.Maghrib}</div>
       <div class="col-6"><strong>Isha:</strong></div>
-      <div class="col-6">${prayers.ishaa}</div>
+      <div class="col-6">${prayers.Isha}</div>
     </div>
   `;
 
