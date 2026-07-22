@@ -20,7 +20,7 @@ function FindYourCity() {
   );
 
   detailsDiv.style.overflow = "auto"; // Enable vertical scrolling if content overflows
-  
+
   detailsDiv.innerHTML = `
     <h4 class="mb-3">Find Prayer Times</h4>
     <p class="text-muted">
@@ -46,14 +46,16 @@ function FindYourCity() {
   document.body.appendChild(detailsDiv);
 
   // Add event listener for the form submission
-  document.getElementById("searchForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const country = document.getElementById("countryInput").value.trim();
-    const city = document.getElementById("cityInput").value.trim();
-    if (country && city) {
-      await fetchPrayerTimes(city, country);
-    }
-  });
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const country = document.getElementById("countryInput").value.trim();
+      const city = document.getElementById("cityInput").value.trim();
+      if (country && city) {
+        await fetchPrayerTimes(city, country);
+      }
+    });
 }
 
 async function fetchPrayerTimes(city, country) {
@@ -61,34 +63,40 @@ async function fetchPrayerTimes(city, country) {
   resultsDiv.innerHTML = "<p>Loading...</p>";
 
   try {
-    const response = await axios.get(`${WorldPrayerTimeAPI}city=${city}&country=${country}`);
+    const response = await axios.get(
+      `${WorldPrayerTimeAPI}city=${encodeURIComponent(city)}&country=${encodeURIComponent(country)}`,
+    );
     const data = response.data;
+    const prayerData = data?.data;
+    const timings = prayerData?.timings;
 
-    if (data.code === 200) {
-     
-       const timings = data.data.timings;
+    if (response.status === 200 && prayerData && timings) {
       resultsDiv.innerHTML = `
         <h5>Prayer Times for ${city}, ${country}</h5>
-        <p><strong>Date:</strong> ${data.data.date.readable}</p>
-        <p><strong>Hijri Date:</strong> ${data.data.date.hijri.date}</p>
+        <p><strong>Date:</strong> ${prayerData.date?.readable || "N/A"}</p>
+        <p><strong>Hijri Date:</strong> ${prayerData.date?.hijri?.date || "N/A"}</p>
         <div class="row text-start">
           <div class="col-6"><strong>Fajr:</strong></div>
-          <div class="col-6">${timings.Fajr}</div>
+          <div class="col-6">${timings.Fajr || "N/A"}</div>
           <div class="col-6"><strong>Dhuhr:</strong></div>
-          <div class="col-6">${timings.Dhuhr}</div>
+          <div class="col-6">${timings.Dhuhr || "N/A"}</div>
           <div class="col-6"><strong>Asr:</strong></div>
-          <div class="col-6">${timings.Asr}</div>
+          <div class="col-6">${timings.Asr || "N/A"}</div>
           <div class="col-6"><strong>Maghrib:</strong></div>
-          <div class="col-6">${timings.Maghrib}</div>
+          <div class="col-6">${timings.Maghrib || "N/A"}</div>
           <div class="col-6"><strong>Isha:</strong></div>
-          <div class="col-6">${timings.Isha}</div>
+          <div class="col-6">${timings.Isha || "N/A"}</div>
         </div>
       `;
     } else {
-      resultsDiv.innerHTML = `<p class="text-danger">Error: ${data.data}</p>`;
+      resultsDiv.innerHTML = `<p class="text-danger">The API returned an unexpected response. Please try again.</p>`;
     }
   } catch (error) {
-    resultsDiv.innerHTML = `<p class="text-danger">An error occurred: ${error.response?.data?.message || error.message}</p>`;
+    const message =
+      error.response?.data?.code ||
+      error.response?.data?.message ||
+      error.message;
+    resultsDiv.innerHTML = `<p class="text-danger">An error occurred: ${message}</p>`;
   }
 }
 
@@ -100,5 +108,7 @@ function closeDetails() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("findCity-link").addEventListener("click", FindYourCity);
+  document
+    .getElementById("findCity-link")
+    .addEventListener("click", FindYourCity);
 });

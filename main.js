@@ -128,12 +128,48 @@ async function FillTheSelectWithTheCities() {
     });
 
     if (cityFilter) {
-      cityFilter.addEventListener("input", () => {
-        const searchValue = cityFilter.value.toLowerCase();
+      const filterCityOptions = () => {
+        const searchValue = cityFilter.value.trim().toLowerCase();
+        let matchedOption = null;
+
         Array.from(select.options).forEach((option) => {
+          if (!option.value) {
+            option.hidden = false;
+            return;
+          }
+
           const text = option.text.toLowerCase();
-          option.hidden = !text.includes(searchValue);
+          const isMatch = text.includes(searchValue);
+          option.hidden = !isMatch;
+
+          if (isMatch && !matchedOption) {
+            matchedOption = option;
+          }
         });
+
+        if (
+          searchValue &&
+          matchedOption &&
+          matchedOption.value !== select.value
+        ) {
+          select.value = matchedOption.value;
+          FillTheTabelWithTheCityPrayers(matchedOption.value);
+        }
+      };
+
+      cityFilter.addEventListener("input", filterCityOptions);
+      cityFilter.addEventListener("keydown", async (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          const visibleOptions = Array.from(select.options).filter(
+            (option) => option.value && !option.hidden,
+          );
+
+          if (visibleOptions.length === 1) {
+            select.value = visibleOptions[0].value;
+            await FillTheTabelWithTheCityPrayers(visibleOptions[0].value);
+          }
+        }
       });
     }
 
