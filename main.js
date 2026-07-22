@@ -29,6 +29,68 @@ const cities = [
   { id: "Fes|MA", arabicCityName: "فاس", frenshCityName: "Fes" },
   { id: "Agadir|MA", arabicCityName: "أكادير", frenshCityName: "Agadir" },
   { id: "Oujda|MA", arabicCityName: "وجدة", frenshCityName: "Oujda" },
+  { id: "Kenitra|MA", arabicCityName: "القنيطرة", frenshCityName: "Kenitra" },
+  { id: "Tetouan|MA", arabicCityName: "تطوان", frenshCityName: "Tetouan" },
+  { id: "Safi|MA", arabicCityName: "اسفي", frenshCityName: "Safi" },
+  {
+    id: "El Jadida|MA",
+    arabicCityName: "الجديدة",
+    frenshCityName: "El Jadida",
+  },
+  {
+    id: "Beni Mellal|MA",
+    arabicCityName: "بني ملال",
+    frenshCityName: "Beni Mellal",
+  },
+  {
+    id: "Errachidia|MA",
+    arabicCityName: "الرشيدية",
+    frenshCityName: "Errachidia",
+  },
+  { id: "Khouribga|MA", arabicCityName: "خريبكة", frenshCityName: "Khouribga" },
+  { id: "Laayoune|MA", arabicCityName: "العيون", frenshCityName: "Laayoune" },
+  { id: "Dakhla|MA", arabicCityName: " الداخلة", frenshCityName: "Dakhla" },
+  { id: "Settat|MA", arabicCityName: "سطات", frenshCityName: "Settat" },
+  { id: "Nador|MA", arabicCityName: "الناظور", frenshCityName: "Nador" },
+  {
+    id: "Khemisset|MA",
+    arabicCityName: "الخميسات",
+    frenshCityName: "Khemisset",
+  },
+  { id: "Berkane|MA", arabicCityName: "بركان", frenshCityName: "Berkane" },
+  { id: "Taza|MA", arabicCityName: " تازة", frenshCityName: "Taza" },
+  {
+    id: "Taroudant|MA",
+    arabicCityName: "تارودانت",
+    frenshCityName: "Taroudant",
+  },
+  { id: "Guelmim|MA", arabicCityName: "كلميم", frenshCityName: "Guelmim" },
+  {
+    id: "Fquih Ben Salah|MA",
+    arabicCityName: "الفقيه بن صالح",
+    frenshCityName: "Fquih Ben Salah",
+  },
+  {
+    id: "Sidi Slimane|MA",
+    arabicCityName: "سيدي سليمان",
+    frenshCityName: "Sidi Slimane",
+  },
+  {
+    id: "Youssoufia|MA",
+    arabicCityName: "اليوسفية",
+    frenshCityName: "Youssoufia",
+  },
+  {
+    id: "Al Hoceima|MA",
+    arabicCityName: "الحسيمة",
+    frenshCityName: "Al Hoceima",
+  },
+  { id: "Taourirt|MA", arabicCityName: "تاوريرت", frenshCityName: "Taourirt" },
+  {
+    id: "Chefchaouen|MA",
+    arabicCityName: "شفشاون",
+    frenshCityName: "Chefchaouen",
+  },
 ];
 
 function getCityDetails(cityId) {
@@ -42,6 +104,11 @@ async function FillTheSelectWithTheCities() {
     clearFooterError();
     const select = document.getElementById("citySelect");
     select.innerHTML = ""; // Clear existing options
+
+    const cityFilter = document.getElementById("citySearchInput");
+    if (cityFilter) {
+      cityFilter.value = "";
+    }
 
     // Populate the select element with city options
     cities.forEach((city) => {
@@ -59,6 +126,16 @@ async function FillTheSelectWithTheCities() {
       const selectedCityId = event.target.value;
       await FillTheTabelWithTheCityPrayers(selectedCityId); // Update the table with the new city's prayer times
     });
+
+    if (cityFilter) {
+      cityFilter.addEventListener("input", () => {
+        const searchValue = cityFilter.value.toLowerCase();
+        Array.from(select.options).forEach((option) => {
+          const text = option.text.toLowerCase();
+          option.hidden = !text.includes(searchValue);
+        });
+      });
+    }
 
     // Load the default city's prayer times
     await FillTheTabelWithTheCityPrayers("Marrakech|MA"); // Default city for Marrakesh
